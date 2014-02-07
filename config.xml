@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns 	= "http://www.w3.org/ns/widgets"
+	xmlns:gap 	= "http://phonegap.com/ns/1.0"
+	id			= "com.phonegap.project"
+	versionCode = "10"
+	version		= "1.0.0" >
+	
+	<name>Joseph Project</name>
+	<desciption>	
+		A Project to practice App building
+	</desciption>
+	<author href="https://build.phonegap.com" email="jpladapoose@yahoo.com">
+	Joseph Sheen
+	</author>
+	<icon src="icon.png" />
+</widget>
