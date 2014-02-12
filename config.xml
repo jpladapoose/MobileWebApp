@@ -42,8 +42,5 @@
 	<gap:splash src="splash/ios/Default-Portrait_at_2x.png" gap:platform="ios" width="1536" height="2008" />
 </widget>
 <!-- iOS Sizes
-Retina (2x)
-Portrait: 1536x2048px
-Landscape: 2048x1536px
 
 -->
