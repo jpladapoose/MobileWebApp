@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="config.xml"  />
+<title>Index</title>
+<script type="text/javascript" charset="utf-8">
+// The Watch id references the current watch Acceleration
+var watchID = null;
+//Wait for device API libraries to load
+//
+document.addEventListener("deviceready", onDeviceReady, false);
+//device APIs are available
+//
+function onDeviceReady(){
+	startWatch();
+}
+function onDeviceReady(){
+	navigator.accelerometer.getCurrentAcceleration (onSuccess, onError);
+}
+function startWatch(){
+	var options = { frequency: 400};
+	watchId = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+}
+//onSuccess: get a snapshot of the current acceleration
+//
+function stopWatch(){
+	if (watchID){
+		navigator.accelerometer.clearWatch (watchID);
+		watchID = null;
+	}
+}
+function onSuccess(acceleration){
+	var element = document.getElementById('accelerometer');
+	element.innerHTML = 'Acceleration X: ' 	+ acceleration.x + '<br />' +
+						'Acceleration Y: ' 	+ acceleration.y + '<br />' +
+						'Acceleration Z: ' 	+ acceleration.z + '<br />' +
+						'Timestamp:' 		+ acceleration.timestamp + '<br />';
+}
+//onError: Failed to get the acceleration
+//
+function onError(){
+	alert('onError');
+}
+</script>
+</head>
+
+<body>
+	<div id="acceleromter"> Waiting for accelerometer...</div>
+    <button onclick="sdtopWatch();">Stop Watching</button>
+</body>
+</html>
