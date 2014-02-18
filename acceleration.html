@@ -2,8 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="config.xml"  />
-<title>Index</title>
+<title>Acceleration Example</title>
+</head>
+<body>
+	<div data-role="page">
+    <div data-add-back-btn="true" data-role="header" data-position="fixed">
+    <h1>Joseph Sheen Project</h1>
+    </div><!--header -->
 <script type="text/javascript" charset="utf-8">
 // The Watch id references the current watch Acceleration
 var watchID = null;
@@ -13,16 +18,16 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //device APIs are available
 //
 function onDeviceReady(){
+	window.alert('worked');
 	startWatch();
 }
-function onDeviceReady(){
-	navigator.accelerometer.getCurrentAcceleration (onSuccess, onError);
-}
+//start watching acceleration
 function startWatch(){
+			console.log('In startWatch');
 	var options = { frequency: 400};
 	watchId = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
 }
-//onSuccess: get a snapshot of the current acceleration
+//Stop Watching
 //
 function stopWatch(){
 	if (watchID){
@@ -30,6 +35,8 @@ function stopWatch(){
 		watchID = null;
 	}
 }
+//onSuccess: get a snapshot of the current acceleration
+//
 function onSuccess(acceleration){
 	var element = document.getElementById('accelerometer');
 	element.innerHTML = 'Acceleration X: ' 	+ acceleration.x + '<br />' +
@@ -43,10 +50,8 @@ function onError(){
 	alert('onError');
 }
 </script>
-</head>
 
-<body>
 	<div id="acceleromter"> Waiting for accelerometer...</div>
-    <button onclick="sdtopWatch();">Stop Watching</button>
+    <button onclick="stopWatch();">Stop Watching</button>
 </body>
 </html>
