@@ -2,13 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ 	<script src="inc/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8">
+	</script>
 <title>Acceleration Example</title>
 </head>
 <body>
     <div data-add-back-btn="true" data-role="header" data-position="fixed">
     <h1>Joseph Sheen Project</h1>
     </div><!--header -->
-    
+    <div data-role="header" data-position="fixed">
+    <h2>Accelerometer</h2>
+    </div>
+
 <script type="text/javascript" charset="utf-8">
 // The Watch id references the current watch Acceleration
 var watchID = null;
@@ -18,14 +24,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //device APIs are available
 //
 function onDeviceReady(){
-	window.alert('worked');
+	console.log('In onDeviceReady');
 	startWatch();
 }
 //start watching acceleration
 function startWatch(){
-			console.log('In startWatch');
-	var options = { frequency: 400};
+	console.log('In startWatch');
+	var options = { frequency: 40};
 	watchId = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+	console.log('watchId = '+watchId)
 }
 //Stop Watching
 //
@@ -38,11 +45,29 @@ function stopWatch(){
 //onSuccess: get a snapshot of the current acceleration
 //
 function onSuccess(acceleration){
-	var element = document.getElementById('accelerometer');
-	element.innerHTML = 'Acceleration X: ' 	+ acceleration.x + '<br />' +
+	var accel = document.getElementById("txtArea");
+	accel.innerHTML = 'Acceleration X: ' 	+ acceleration.x + '<br />' +
 						'Acceleration Y: ' 	+ acceleration.y + '<br />' +
 						'Acceleration Z: ' 	+ acceleration.z + '<br />' +
 						'Timestamp:' 		+ acceleration.timestamp + '<br />';
+			var x = acceleration.x;
+			var y = acceleration.y;
+			var left = parseInt($("#box").css("left"));
+			var top = parseInt($("#box").css("top"));
+			var bottom = parseInt($("#box").css("bottom"));
+			var right = parseInt($("#box").css("right"));
+			if( x > 0){
+					$("#box").css("left", left -=1);
+			}else if(x < 0){
+					$("#box").css("left", left +=1);
+			}
+			
+			if(y > 0){
+					$("#box").css("top", top -=1);
+			}else{
+					$("#box").css("top", top +=1);
+			}
+console.log(x+' = '+y);
 }
 //onError: Failed to get the acceleration
 //
@@ -51,7 +76,18 @@ function onError(){
 }
 </script>
 
-	<div id="acceleromter"> Waiting for accelerometer...</div>
     <button onclick="stopWatch();">Stop Watching</button>
+    
+	<div id="txtArea"> Waiting for accelerometer...</div>
+    <div id="box"
+    		style="			background-color:#3CC;
+            				width: 25px;
+                            height: 25px;
+                            position: relative;
+                    top: 0px;
+                    left: 0px;
+                    ">
+                    &nbsp;
+	</div>
 </body>
 </html>
