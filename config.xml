@@ -6,9 +6,9 @@
 	version		= "1.0.0" >
 	
 	<name>Joseph Project</name>
-	<desciption>	
+	<description>	
 		A Project to practice App building
-	</desciption>
+	</description>
 	<author href="https://build.phonegap.com" email="jpladapoose@yahoo.com">
 	Joseph Sheen
 	</author>
