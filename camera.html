@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Camera App</title>
+<script type="text/javascript" charset="utf-8" src="inc/jquery.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+var pictureSource; //picture source
+var destinationType; //sets the format of the returned value
+
+//wait for device API libraries to load
+document.addEventListener("deviceready", onDeviceReady, false);
+
+//device APIs are available
+function onDeviceReady() {
+	pictureSource=navigatior.camera.PictureSourceType;
+	destinationType=navigator.camera.DestinationType;
+}
+
+//called when a photo is successfully retrieved
+function onPhotoDataSuccess(imageData) {
+	//get image handle
+	var smallImage = document.getElementById('smallImage');
+	
+	//unhide image elements
+	smallImage.style.display = 'block';
+	//show the captured photo
+	smallImage.src = "data:image/jpeg;base64," + imageData;
+}
+
+//called when a photo is successfully retrieved
+function onPhotoURISuccess(imageURI){
+	//get image handle
+	var largeImage = document.getElementById('largeimage');
+	
+	//unhide image elements
+	largeImage.style.display = 'block';
+	
+	//show the captured photo
+	largeImage.src = imageURI;
+}
+
+// a button will call this function
+function capturePhoto(){
+	 //take picture using device camera and retrieve image as base64-encoded string
+	 navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50,
+	 	destinationType: destinationType.DATA_URL });
+}
+
+//a button will call this function
+function capturePhotoEdit(){
+	//take picture using device camera, allow edit, and retrieve image as base64-encoded string
+	navigator.camera.getPicture(onPhotoURISuccess, onFail,{ quality: 50, 
+		sourceType: source});
+}
+
+//a button will call this function
+function getPhoto(source) {
+	//retrieve image file location from specified source
+	navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+		sourceType: source});
+}
+
+//called if it doesn't work
+function onFail(message) {
+	alert('Failed because:' + message);
+}
+</script>
+</head>
+
+<body>
+  <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+</body>
+</html>
