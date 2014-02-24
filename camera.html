@@ -14,7 +14,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 //device APIs are available
 function onDeviceReady() {
-	pictureSource=navigatior.camera.PictureSourceType;
+	pictureSource=navigator.camera.PictureSourceType;
 	destinationType=navigator.camera.DestinationType;
 }
 
@@ -51,14 +51,15 @@ function capturePhoto(){
 //a button will call this function
 function capturePhotoEdit(){
 	//take picture using device camera, allow edit, and retrieve image as base64-encoded string
-	navigator.camera.getPicture(onPhotoURISuccess, onFail,{ quality: 50, 
-		sourceType: source});
+	navigator.camera.getPicture(onPhotoURISuccess, onFail,{ quality: 50, allowEdit: true,
+		destinationType: destinationType.DATA_URL});
 }
 
 //a button will call this function
 function getPhoto(source) {
 	//retrieve image file location from specified source
 	navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+		destinationType: destinationType.FILE_URI,
 		sourceType: source});
 }
 
@@ -74,7 +75,7 @@ function onFail(message) {
     <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br />
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br />
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br />
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none; width:60px; height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
 </body>
 </html>
