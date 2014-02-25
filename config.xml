@@ -12,6 +12,10 @@
 	<author href="https://build.phonegap.com" email="jpladapoose@yahoo.com">
 	Joseph Sheen
 	</author>
+	<!-- Accessing Camera -->
+	<feature name="Camera">
+		<param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+	</feature>
 	<!-- Default Icon -->
 	<icon src="icons/icon.png" />
 	<!-- Ios Icons -->

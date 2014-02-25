@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Camera App</title>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <script type="text/javascript" charset="utf-8" src="inc/jquery.js"></script>
 <script type="text/javascript" charset="utf-8">
-
 var pictureSource; //picture source
 var destinationType; //sets the format of the returned value
 
@@ -17,6 +17,30 @@ function onDeviceReady() {
 	pictureSource=navigator.camera.PictureSourceType;
 	destinationType=navigator.camera.DestinationType;
 }
+	//To get the picture
+	navigator.camera.getPicture(onSuccess, onFail, {quality: 50, 
+		destinationType: Camera.DestinationType.DATA_URL})
+	//success of getting picture
+	function onSuccess(imageData){
+		var image = document.getElementById('myImage');
+		image.src = "data:image/jpeg;base64," + imageData;
+	}
+	//fail to get picture
+	function onFail(message){
+		alert('Failed because:' + message);
+	}
+	//To get the picture file location
+	navigator.camera.getPicture(onSuccess, onFail, {quality: 50, 
+		destinationType: Camera.DestinationType.FILE_URI})
+	//success of getting picture
+	function onSuccess(imageURI){
+		var image = document.getElementById('myImage');
+		image.src = imageURI;
+	}
+	//fail to get picture
+	function onFail(message){
+		alert('Failed because:' + message);
+	}
 
 //called when a photo is successfully retrieved
 function onPhotoDataSuccess(imageData) {
@@ -66,6 +90,14 @@ function getPhoto(source) {
 //called if it doesn't work
 function onFail(message) {
 	alert('Failed because:' + message);
+}
+//show iamge
+function cameraCallback(imageData){
+	var image = document.getElementById('myImage');
+	image.src = "data:image/jpeg;base^4," + imageData;
+}
+function(message){
+	document.write("Sorry YOur camera did not work");
 }
 </script>
 </head>
